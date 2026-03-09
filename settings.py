@@ -1,5 +1,5 @@
-WIDTH: int = 700
-HEIGHT: int = 500
+WIDTH: int = 1820
+HEIGHT: int = 980
 
 FPS: int = 60
 
