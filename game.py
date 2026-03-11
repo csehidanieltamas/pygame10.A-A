@@ -11,7 +11,7 @@ from settings import (
 
 
 class Game:
-
+    print("teszt")
     def run(self) -> None:
         run: bool = True
         clock: pygame.time.Clock = pygame.time.Clock()
