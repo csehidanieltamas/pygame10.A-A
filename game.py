@@ -1,5 +1,6 @@
 import pygame
 from bird import Bird
+from pipe import Pipe
 from settings import (
     WHITE,
     WIDTH,
@@ -34,7 +35,7 @@ class Game:
 
             lost: bool = False
             lose_text: str = "Meghaloltál"
-            if self.bird.colliderect(pipe):
+            if self.bird.colliderect(self.pipe):
                 lost = True
 
             if lost:
@@ -56,5 +57,5 @@ class Game:
         self.SCORE_FONT = pygame.font.SysFont("comicsans", 50)
         self.WIN: pygame.Surface = pygame.display.set_mode((WIDTH, HEIGHT))
         self.bg = pygame.image.load("imageSourcse/bg.jpg").convert()
-        self.bird: Bird = Bird(50, 50)
-        self.pipe: Pipe = Pipe()
+        self.bird: Bird = Bird(50, 50) #ezek a paraméterek még nem jók ,csak tesztnek
+        self.pipe: Pipe = Pipe(50)
