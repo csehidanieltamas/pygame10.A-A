@@ -9,3 +9,5 @@ COLOR: tuple[int, int, int] = WHITE
 
 VEL: int = 4
 
+PIPE_VEL: int = 5
+PIPE_GAP: int = 200
