@@ -1,6 +1,5 @@
 import pygame
 from bird import Bird
-from pipe import Pipe
 from settings import (
     WHITE,
     WIDTH,
@@ -20,12 +19,14 @@ class Game:
         while run:
             clock.tick(FPS)
             self.WIN.blit(self.bg, (0,0))
-            self.bird.draw()
+            self.bird.draw(self.WIN)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
                     break
+                if event.type == SPAWNPIPE:
+                    PIPE_LIST.append
 
             self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
             self.bird.move()
