@@ -14,7 +14,7 @@ class Bird:
         win.blit(self.player_img, self.rect)
 
     def move(self):
-        self.y_vel -= 10
+        self.y_vel += 1
         self.rect.y += int(self.y_vel)
 
 
