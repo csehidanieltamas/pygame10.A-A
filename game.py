@@ -1,6 +1,6 @@
 import pygame
-#from bird import Bird
-#from pipe import Pipe
+from bird import Bird
+from pipe import Pipe
 from settings import (
     WHITE,
     WIDTH,
@@ -19,8 +19,8 @@ class Game:
 
         while run:
             clock.tick(FPS)
-            self.WIN.blit(self.bg, (50,50))
-#            self.bird.draw()
+            self.WIN.blit(self.bg, (0,0))
+            self.bird.draw()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -28,13 +28,13 @@ class Game:
                     break
 
             self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
-#            self.bird.move()
-#            self.pipe.move()
+            self.bird.move()
+            self.pipe.move()
 
             lost: bool = False
             lose_text: str = "Meghaloltál"
-#            if self.bird.colliderect(pipe):
-#                lost = True
+            if self.bird.colliderect(pipe):
+                lost = True
 
             if lost:
                 text = self.SCORE_FONT.render(lose_text, 1, WHITE)
@@ -55,5 +55,5 @@ class Game:
         self.SCORE_FONT = pygame.font.SysFont("comicsans", 50)
         self.WIN: pygame.Surface = pygame.display.set_mode((WIDTH, HEIGHT))
         self.bg = pygame.image.load("imageSourcse/bg.jpg").convert()
-#        self.bird: Bird = Bird(50, 50)
-#        self.pipe: Pipe = Pipe()
+        self.bird: Bird = Bird(50, 50)
+        self.pipe: Pipe = Pipe()
