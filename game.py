@@ -5,60 +5,44 @@ from settings import (
     WHITE,
     BLACK,
     WIDTH,
-    HEIGHT,
-    PADDLE_HEIGHT,
-    PADDLE_WIDTH,
-    WINNING_SCORE,
-    BALL_RADIUS,
+    HEIGHT, 
     FPS,
-    VEL,
-    MAX_VEL
 )
 
 
 class Game:
-
+    print("teszt")
     def run(self) -> None:
         run: bool = True
         clock: pygame.time.Clock = pygame.time.Clock()
 
-        bird = Bird(50, 50)
+        self.bird: Bird = Bird(50, 50)
+        self.pipe: Pipe = Pipe()
 
-        score: int = 0
+        self.score: int = 0
 
         while run:
             clock.tick(FPS)
-            bird.draw()
+            bg = pygame.image.load("bg.jpg").convert()
+            self.WIN.blit(bg, (50,50))
+            self.bird.draw()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
                     break
 
-            keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
-            self.handle_paddle_movement(keys, left_paddle, right_paddle)
+            self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
+            self.bird.move()
+            self.pipe.move()
 
-            ball.move()
-            self.handle_collision(ball, left_paddle, right_paddle)
+            lost: bool = False
+            lose_text: str = "Meghaloltál"
+            if self.bird.colliderect(pipe):
+                lost = True
 
-            if ball.x < 0:
-                right_score += 1
-                ball.reset()
-            elif ball.x > WIDTH:
-                left_score += 1
-                ball.reset()
-
-            won: bool = False
-            win_text: str = ""
-            if left_score >= WINNING_SCORE:
-                won = True
-                win_text = "Left Player Won!"
-            elif right_score >= WINNING_SCORE:
-                won = True
-                win_text = "Right Player Won!"
-
-            if won:
-                text = self.SCORE_FONT.render(win_text, 1, WHITE)
+            if lost:
+                text = self.SCORE_FONT.render(lose_text, 1, WHITE)
                 self.WIN.blit(
                     text,
                     (
@@ -67,6 +51,7 @@ class Game:
                     ),
                 )
                 pygame.display.update()
+            pygame.quit()
 
         pygame.quit()
 
