@@ -26,8 +26,8 @@ class Game:
                 if event.type == pygame.QUIT:
                     run = False
                     break
-                if event.type == SPAWNPIPE:
-                    PIPE_LIST.append
+#                if event.type == SPAWNPIPE:
+#                    PIPE_LIST.append
 
             self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
             self.bird.move()
@@ -35,8 +35,8 @@ class Game:
 
             lost: bool = False
             lose_text: str = "Meghaloltál"
-            if self.bird.colliderect(self.pipe):
-                lost = True
+#            if self.bird.colliderect(self.pipe):
+#                lost = True
 
             if lost:
                 text = self.SCORE_FONT.render(lose_text, 1, WHITE)
@@ -56,6 +56,6 @@ class Game:
         pygame.init()
         self.SCORE_FONT = pygame.font.SysFont("comicsans", 50)
         self.WIN: pygame.Surface = pygame.display.set_mode((WIDTH, HEIGHT))
-        self.bg = pygame.image.load("imageSourcse/bg.jpg").convert()
+        self.bg = pygame.image.load("imageSource/bg.jpg").convert()
         self.bird: Bird = Bird(50, 50) #ezek a paraméterek még nem jók ,csak tesztnek
         self.pipe: Pipe = Pipe(50)
