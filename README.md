@@ -5,7 +5,7 @@
 
 ---
 
-### 👥 Csapattagok és feladatkörök:
+### 👥 Csapattagok:
 * **Csehi Dániel Tamás:** `game.py` nagy része (Fő játékmenet, állapotok és ciklusok kezelése)
 * **Figder Márk:** Grafika és `bird.py` nagy része (Madár osztály, fizika és gravitáció)
 * **Boksay Levente:** `pipe.py` nagy része és a csövek integrálása a `game.py`-ba (Akadályok generálása és mozgatása)
