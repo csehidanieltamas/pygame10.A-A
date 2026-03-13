@@ -1,4 +1,4 @@
-import sys
+#import sys
 
 import pygame
 
@@ -32,10 +32,17 @@ class Game:
                     if event.button == 1:
                         self.bird.jump()
 
-                if self.bird.rect.y <= 0 or self.bird.rect.y >= 920:
+                if (
+                    self.bird.rect.y <= 0
+                    or self.bird.rect.top <= 0
+                    or self.bird.rect.bottom >= HEIGHT
+                    or self.bird.rect.y >= 980
+                ):
+                    self.bird.freeze()
                     run = False
                     pygame.quit()
-                    sys.exit()
+                    break
+                    # sys.exit()
 
             self.bird.move()
             self.pipe.move()
