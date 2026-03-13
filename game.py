@@ -16,10 +16,34 @@ class Game:
             medium = self.SCORE_FONT.render("2 / M - Közepes", 1, settings.WHITE)
             hard = self.SCORE_FONT.render("3 / H - Nehéz", 1, settings.WHITE)
 
-            self.WIN.blit(title, (settings.WIDTH // 2 - title.get_width() // 2, settings.HEIGHT // 2 - 150))
-            self.WIN.blit(easy, (settings.WIDTH // 2 - easy.get_width() // 2, settings.HEIGHT // 2 - 50))
-            self.WIN.blit(medium, (settings.WIDTH // 2 - medium.get_width() // 2, settings.HEIGHT // 2 + 50))
-            self.WIN.blit(hard, (settings.WIDTH // 2 - hard.get_width() // 2, settings.HEIGHT // 2 + 150))
+            self.WIN.blit(
+                title,
+                (
+                    settings.WIDTH // 2 - title.get_width() // 2,
+                    settings.HEIGHT // 2 - 150,
+                ),
+            )
+            self.WIN.blit(
+                easy,
+                (
+                    settings.WIDTH // 2 - easy.get_width() // 2,
+                    settings.HEIGHT // 2 - 50,
+                ),
+            )
+            self.WIN.blit(
+                medium,
+                (
+                    settings.WIDTH // 2 - medium.get_width() // 2,
+                    settings.HEIGHT // 2 + 50,
+                ),
+            )
+            self.WIN.blit(
+                hard,
+                (
+                    settings.WIDTH // 2 - hard.get_width() // 2,
+                    settings.HEIGHT // 2 + 150,
+                ),
+            )
 
             pygame.display.update()
 
@@ -73,7 +97,7 @@ class Game:
                     if event.button == 1:
                         self.bird.jump()
 
-                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if event.type == pygame.MOUSEBUTTONDOWN:
                     if not lost:
                         self.bird.jump()
                     else:
@@ -108,12 +132,22 @@ class Game:
 
             if lost:
                 lose_text: str = "Meghaltál"
-                text = self.SCORE_FONT.render(lose_text, 1, settings.WHITE)
+                text1 = self.SCORE_FONT.render(lose_text, 1, settings.WHITE)
                 self.WIN.blit(
-                    text,
+                    text1,
                     (
-                        settings.WIDTH // 2 - text.get_width() // 2,
-                        settings.HEIGHT // 2 - text.get_height() // 2,
+                        settings.WIDTH // 2 - text1.get_width() // 2,
+                        settings.HEIGHT // 2 - text1.get_height() // 2,
+                    ),
+                )
+                text2 = self.SCORE_FONT2.render(
+                    "Nyomj egy egérgombot az újrakezdéshez!", 1, settings.WHITE
+                )
+                self.WIN.blit(
+                    text2,
+                    (
+                        settings.WIDTH // 2 - text2.get_width() // 2,
+                        settings.HEIGHT // 2 - text2.get_height() // 2 + 100,
                     ),
                 )
 
@@ -125,7 +159,10 @@ class Game:
         self.score: int = 0
         self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
         self.SCORE_FONT: pygame.font.Font = pygame.font.SysFont("comicsans", 100)
-        self.WIN: pygame.Surface = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
+        self.SCORE_FONT2: pygame.font.Font = pygame.font.SysFont("comicsans", 50)
+        self.WIN: pygame.Surface = pygame.display.set_mode(
+            (settings.WIDTH, settings.HEIGHT)
+        )
         self.bird: Bird = Bird(150, 200)
         self.pipes: list[Pipe] = []
         self.bg: Bg = Bg()
