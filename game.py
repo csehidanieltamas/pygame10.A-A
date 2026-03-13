@@ -13,14 +13,19 @@ class Game:
     def run(self) -> None:
         run: bool = True
         lost: bool = False
+        pont: int = 0
         clock: pygame.time.Clock = pygame.time.Clock()
-        ketto_mp_timer: int = 0
+        timer: int = 0
 
         while run:
             clock.tick(FPS)
             self.bg.move()
             self.bg.draw(self.WIN)
             self.bird.draw(self.WIN)
+
+            text = self.SCORE_FONT.render(str(pont), 1, WHITE)
+            self.WIN.blit(text, (50, 50))
+
             for p in self.pipes:
                 p.draw(self.WIN)
 
@@ -36,17 +41,21 @@ class Game:
                     if event.button == 1:
                         self.bird.jump()
 
-                if event.type == pygame.KEYDOWN and event.button == 1:
+                if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                     if not lost:
                         self.bird.jump()
                     else:
                         lost = False
                         self.bird.bird_reset()
                         self.pipes.clear()
+                        pont = 0
 
-            if ketto_mp_timer > 90:
+            if timer % 90 == 0:
+                pont += 1
+
+            if timer > 90:
                 self.pipes.append(Pipe(2000))
-                ketto_mp_timer = 0
+                timer = 0
 
             for p in self.pipes:
                 if self.bird.rect.colliderect(p.rect) or self.bird.rect.colliderect(
@@ -61,7 +70,7 @@ class Game:
                 self.bird.move()
                 for p in self.pipes:
                     p.move()
-                ketto_mp_timer += 1
+                timer += 1
             else:
                 self.bird.freeze()
 
@@ -83,10 +92,10 @@ class Game:
         pygame.init()
         self.score: int = 0
         self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
-        self.SCORE_FONT = pygame.font.SysFont("comicsans", 100)
+        self.SCORE_FONT: pygame.font = pygame.font.SysFont("comicsans", 100)
         self.WIN: pygame.Surface = pygame.display.set_mode((WIDTH, HEIGHT))
         self.bird: Bird = Bird(
             150, 200
         )  # ezek a paraméterek még nem jók ,csak tesztnek
         self.pipes: list[Pipe] = []
-        self.bg = Bg()
+        self.bg: Bg = Bg()
