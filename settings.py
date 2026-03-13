@@ -6,5 +6,5 @@ WHITE: tuple[int, int, int] = (255, 255, 255)
 
 VEL: int = -12
 
-PIPE_VEL: int = 5
+PIPE_VEL: int = 10
 PIPE_GAP: int = 800

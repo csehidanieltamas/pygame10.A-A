@@ -1,4 +1,4 @@
-#import sys
+# import sys
 
 import pygame
 
@@ -35,13 +35,23 @@ class Game:
                     if event.button == 1:
                         self.bird.jump()
 
-            if  ketto_mp_timer > 120:
+                if event.type == pygame.KEYDOWN and event.button == 1:
+                    if not lost:
+                        self.bird.jump()
+                    else:
+                        lost = False
+                        self.bird.bird_reset()
+                        self.pipes.clear()
+
+            if ketto_mp_timer > 90:
                 self.pipes.append(Pipe(2000))
                 ketto_mp_timer = 0
 
             for p in self.pipes:
-                if self.bird.rect.colliderect(p.rect) or self.bird.rect.colliderect(p.toprect):
-                    run = False
+                if self.bird.rect.colliderect(p.rect) or self.bird.rect.colliderect(
+                    p.toprect
+                ):
+                    lost = True
 
             if self.bird.rect.top <= 0 or self.bird.rect.bottom >= HEIGHT:
                 lost = True
@@ -53,6 +63,8 @@ class Game:
                 ketto_mp_timer += 1
             else:
                 self.bird.freeze()
+
+            if lost:
                 lose_text: str = "Meghaltál"
                 text = self.SCORE_FONT.render(lose_text, 1, WHITE)
                 self.WIN.blit(

@@ -5,7 +5,7 @@ from settings import PIPE_VEL, PIPE_GAP
 
 class Pipe:
     def __init__(self, x: int) -> None:
-        self.y: int = random.randint(500,700)
+        self.y: int = random.randint(400,800)
         self.passed: bool = False
         self.player_img = pygame.image.load("imageSource/Brick Pipe.png").convert_alpha()
         self.rect = self.player_img.get_rect(topleft=(x,self.y))
