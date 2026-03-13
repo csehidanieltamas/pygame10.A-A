@@ -6,7 +6,7 @@ from settings import HEIGHT, PIPE_VEL, PIPE_GAP
 
 class Pipe:
     PIPE_IMAGE: pygame.Surface = pygame.transform.scale2x(
-        pygame.image.load("imageSource/pipe.jpg")
+        pygame.image.load("imageSource/Brick Pipe.png")
     )
     FLIPPED_PIPE: pygame.Surface = pygame.transform.flip(PIPE_IMAGE, False, True)
 
