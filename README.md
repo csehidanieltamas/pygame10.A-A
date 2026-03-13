@@ -6,9 +6,9 @@
 ---
 
 ### 👥 Csapattagok:
-* **Csehi Dániel Tamás:** `game.py` nagy része (Fő játékmenet, állapotok és ciklusok kezelése)
-* **Figder Márk:** Grafika és `bird.py` nagy része (Madár osztály, fizika és gravitáció)
-* **Boksay Levente:** Karakter sebesség és gyorsulás, játék vége.
+* **Csehi Dániel Tamás:
+* **Figder Márk:
+* **Boksay Levente:
 
 ---
 
