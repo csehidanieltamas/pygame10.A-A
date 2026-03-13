@@ -25,6 +25,7 @@ class Game:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
+                    self.Run = False
                     pygame.quit()
 
                 if event.type == pygame.KEYDOWN:
@@ -42,13 +43,12 @@ class Game:
                         choosing = False
 
     def run(self) -> None:
-        run: bool = True
         lost: bool = False
         pont: int = 0
         clock: pygame.time.Clock = pygame.time.Clock()
         timer: int = 0
 
-        while run:
+        while self.Run:
             clock.tick(settings.FPS)
             self.bg.move()
             self.bg.draw(self.WIN)
@@ -62,7 +62,7 @@ class Game:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    run = False
+                    self.Run = False
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
@@ -128,3 +128,4 @@ class Game:
         self.bird: Bird = Bird(150, 200)
         self.pipes: list[Pipe] = []
         self.bg: Bg = Bg()
+        self.Run: bool = True
