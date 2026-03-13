@@ -115,8 +115,8 @@ class Game:
                 self.WIN.blit(
                     text,
                     (
-                        WIDTH // 2 - text.get_width() // 2,
-                        HEIGHT // 2 - text.get_height() // 2,
+                        settings.WIDTH // 2 - text.get_width() // 2,
+                        settings.HEIGHT // 2 - text.get_height() // 2,
                     ),
                 )
 
