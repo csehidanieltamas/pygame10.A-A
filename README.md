@@ -6,9 +6,9 @@
 ---
 
 ### 👥 Csapattagok:
-* **Csehi Dániel Tamás:
-* **Figder Márk:
-* **Boksay Levente:
+* Csehi Dániel Tamás:
+* Figder Márk:
+* Boksay Levente:
 
 ---
 
