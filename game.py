@@ -92,7 +92,7 @@ class Game:
         pygame.init()
         self.score: int = 0
         self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
-        self.SCORE_FONT: pygame.font = pygame.font.SysFont("comicsans", 100)
+        self.SCORE_FONT:pygame.font.Font = pygame.font.SysFont("comicsans", 100)
         self.WIN: pygame.Surface = pygame.display.set_mode((WIDTH, HEIGHT))
         self.bird: Bird = Bird(
             150, 200
