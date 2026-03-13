@@ -1,7 +1,7 @@
 #import sys
 
 import pygame
-
+from bg import Bg
 from bird import Bird
 from pipe import Pipe
 from settings import FPS, HEIGHT, WIDTH, WHITE
@@ -18,7 +18,8 @@ class Game:
 
         while run:
             clock.tick(FPS)
-            self.WIN.blit(self.bg, (0, 0))
+            self.bg.move()
+            self.bg.draw(self.WIN)
             self.bird.draw(self.WIN)
             for p in self.pipes:
                 p.draw(self.WIN)
@@ -72,8 +73,8 @@ class Game:
         self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
         self.SCORE_FONT = pygame.font.SysFont("comicsans", 100)
         self.WIN: pygame.Surface = pygame.display.set_mode((WIDTH, HEIGHT))
-        self.bg = pygame.image.load("imageSource/Background.png").convert()
         self.bird: Bird = Bird(
             150, 200
         )  # ezek a paraméterek még nem jók ,csak tesztnek
         self.pipes: list[Pipe] = []
+        self.bg = Bg()
