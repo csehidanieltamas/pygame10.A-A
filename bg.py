@@ -8,6 +8,8 @@ class Bg:
 
     def move(self) -> None:
         self.x -= 1
+        if self.x <= -WIDTH:
+            self.x = 0
 
     def draw(self, win: pygame.Surface) -> None:
         win.blit(self.player_img, (self.x, 0))
