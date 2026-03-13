@@ -1,12 +1,10 @@
+import sys
+
 import pygame
+
 from bird import Bird
 from pipe import Pipe
-from settings import (
-    WHITE,
-    WIDTH,
-    HEIGHT,
-    FPS,
-)
+from settings import FPS, HEIGHT, WHITE, WIDTH
 
 
 class Game:
@@ -15,8 +13,6 @@ class Game:
     def run(self) -> None:
         run: bool = True
         clock: pygame.time.Clock = pygame.time.Clock()
-
-        self.score: int = 0
 
         while run:
             clock.tick(FPS)
@@ -27,15 +23,25 @@ class Game:
                 if event.type == pygame.QUIT:
                     run = False
                     break
-            #                if event.type == SPAWNPIPE:
-            #                    PIPE_LIST.append
 
-            self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        self.bird.jump()
+
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if event.button == 1:
+                        self.bird.jump()
+
+                if self.bird.rect.y <= 0 or self.bird.rect.y >= 920:
+                    run = False
+                    pygame.quit()
+                    sys.exit()
+
             self.bird.move()
             self.pipe.move()
 
             lost: bool = False
-            lose_text: str = "Meghaloltál"
+            lose_text: str = "Meghaltál"
             #            if self.bird.colliderect(self.pipe):
             #                lost = True
 
@@ -55,8 +61,12 @@ class Game:
 
     def __init__(self) -> None:
         pygame.init()
+        self.score: int = 0
+        self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
         self.SCORE_FONT = pygame.font.SysFont("comicsans", 50)
         self.WIN: pygame.Surface = pygame.display.set_mode((WIDTH, HEIGHT))
         self.bg = pygame.image.load("imageSource/Background.png").convert()
-        self.bird: Bird = Bird(50, 50)  # ezek a paraméterek még nem jók ,csak tesztnek
+        self.bird: Bird = Bird(
+            200, 200
+        )  # ezek a paraméterek még nem jók ,csak tesztnek
         self.pipe: Pipe = Pipe(50)
