@@ -2,7 +2,7 @@ WIDTH: int = 1820
 HEIGHT: int = 980
 
 FPS: int = 60
-
+WHITE: tuple[int, int, int] = (255, 255, 255)
 
 VEL: int = -12
 
