@@ -20,7 +20,7 @@ class Bird:
 
     def freeze(self):
         self.y_vel = 0
-        if self.rect.bottom <= 0:
-            self.rect.y = 0
-        if self.rect.top >= 980:
-            self.rect.y = 980
+        if self.rect.top <= 0:
+            self.rect.top = 0
+        if self.rect.bottom >= 980:
+            self.rect.bottom = 980
