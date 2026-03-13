@@ -4,7 +4,7 @@ import pygame
 
 from bird import Bird
 from pipe import Pipe
-from settings import FPS, HEIGHT, WIDTH
+from settings import FPS, HEIGHT, WIDTH, WHITE
 
 
 class Game:
@@ -31,7 +31,7 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self.bird.jump()
 
-                if event.type == pygame.MOUSEBUTTONDOWN: 
+                if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
                         self.bird.jump()
 
@@ -49,7 +49,7 @@ class Game:
             if not lost:
                 self.bird.move()
                 for p in self.pipes:
-                p.move()
+                    p.move()
                 ketto_mp_timer += 1
             else:
                 self.bird.freeze()
