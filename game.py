@@ -23,11 +23,11 @@ class Game:
             self.bg.draw(self.WIN)
             self.bird.draw(self.WIN)
 
-            text = self.SCORE_FONT.render(str(pont), 1, WHITE)
-            self.WIN.blit(text, (50, 50))
-
             for p in self.pipes:
                 p.draw(self.WIN)
+
+            text = self.SCORE_FONT.render(str(pont), 1, WHITE)
+            self.WIN.blit(text, (50, 50))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
