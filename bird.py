@@ -1,5 +1,5 @@
 import pygame
-from settings import VEL
+import settings
 
 
 class Bird:
@@ -18,7 +18,7 @@ class Bird:
         self.rect.y += int(self.y_vel)
 
     def jump(self):
-        self.y_vel = VEL
+        self.y_vel = settings.VEL
 
     def freeze(self):
         self.y_vel = 0
