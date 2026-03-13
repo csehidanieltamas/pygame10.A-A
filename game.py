@@ -4,7 +4,7 @@ import pygame
 
 from bird import Bird
 from pipe import Pipe
-from settings import FPS, HEIGHT, WHITE, WIDTH
+from settings import FPS, HEIGHT, WIDTH
 
 
 class Game:
@@ -13,30 +13,31 @@ class Game:
     def run(self) -> None:
         run: bool = True
         clock: pygame.time.Clock = pygame.time.Clock()
+        ketto_mp_timer: int = 0
 
         while run:
-            ketto_mp_timer: int = 0
             clock.tick(FPS)
             self.WIN.blit(self.bg, (0, 0))
             self.bird.draw(self.WIN)
+            for p in self.pipes:
+                p.draw(self.WIN)
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     run = False
-                    break
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self.bird.jump()
 
-                if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.type == pygame.MOUSEBUTTONDOWN: 
                     if event.button == 1:
                         self.bird.jump()
 
-                if self.bird.rect.y <= 0 or self.bird.rect.y >= 920:
-                    run = False
-                    pygame.quit()
-                    sys.exit()
+            if self.bird.rect.y <= 0 or self.bird.rect.y >= 920:
+                run = False
+                pygame.quit()
+                sys.exit()
 
             if  ketto_mp_timer > 120:
                 self.pipes.append(Pipe(2000))
@@ -47,22 +48,10 @@ class Game:
                 p.move()
             ketto_mp_timer += 1
 
-            lost: bool = False
-            lose_text: str = "Meghaltál"
-            #            if self.bird.colliderect(self.pipe):
-            #                lost = True
+            for p in self.pipes:
+                if self.bird.rect.colliderect(p.rect) or self.bird.rect.colliderect(p.toprect):
+                    run = False
 
-            if lost:
-                text = self.SCORE_FONT.render(lose_text, 1, WHITE)
-                self.WIN.blit(
-                    text,
-                    (
-                        WIDTH // 2 - text.get_width() // 2,
-                        HEIGHT // 2 - text.get_height() // 2,
-                    ),
-                )
-                pygame.display.update()
-                pygame.quit()
             pygame.display.update()
         pygame.quit()
 
