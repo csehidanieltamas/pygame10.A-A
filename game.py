@@ -57,6 +57,6 @@ class Game:
         pygame.init()
         self.SCORE_FONT = pygame.font.SysFont("comicsans", 50)
         self.WIN: pygame.Surface = pygame.display.set_mode((WIDTH, HEIGHT))
-        self.bg = pygame.image.load("imageSource/bg.jpg").convert()
+        self.bg = pygame.image.load("imageSource/Background.png").convert()
         self.bird: Bird = Bird(50, 50)  # ezek a paraméterek még nem jók ,csak tesztnek
         self.pipe: Pipe = Pipe(50)

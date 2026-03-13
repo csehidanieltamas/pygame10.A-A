@@ -7,7 +7,7 @@ class Bird:
         self.x: float = x
         self.y: float = y
         self.y_vel: float = 0
-        self.player_img = pygame.image.load("imageSource/Chicken version 2").convert_alpha()
+        self.player_img = pygame.image.load("imageSource/Chicken version 3.png").convert_alpha() 
         self.rect = self.player_img.get_rect(topleft=(x,y))
 
     def draw(self, win: pygame.Surface):
