@@ -17,3 +17,10 @@ class Bird:
 
     def jump(self):
         self.y_vel = VEL
+
+    def freeze(self):
+        self.y_vel = 0
+        if self.rect.top <= 0:
+            self.rect.top = 0
+        if self.rect.bottom >= 980:
+            self.rect.bottom = 980
