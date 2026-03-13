@@ -1,5 +1,3 @@
-# import sys
-
 import pygame
 from bg import Bg
 from bird import Bird
@@ -10,7 +8,6 @@ import settings
 class Game:
     def difficulty(self) -> None:
         choosing: bool = True
-        #menu_font = pygame.font.SysFont("comicsans", 50)
         while choosing:
             self.bg.draw(self.WIN)
 
@@ -26,7 +23,6 @@ class Game:
 
             pygame.display.update()
 
-            # Wait for player input
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -129,8 +125,6 @@ class Game:
         self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
         self.SCORE_FONT: pygame.font.Font = pygame.font.SysFont("comicsans", 100)
         self.WIN: pygame.Surface = pygame.display.set_mode((settings.WIDTH, settings.HEIGHT))
-        self.bird: Bird = Bird(
-            150, 200
-        )  # ezek a paraméterek még nem jók ,csak tesztnek
+        self.bird: Bird = Bird(150, 200)
         self.pipes: list[Pipe] = []
         self.bg: Bg = Bg()
