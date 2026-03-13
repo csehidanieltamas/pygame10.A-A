@@ -15,6 +15,7 @@ class Game:
         clock: pygame.time.Clock = pygame.time.Clock()
 
         while run:
+            ketto_mp_timer: int = 0
             clock.tick(FPS)
             self.WIN.blit(self.bg, (0, 0))
             self.bird.draw(self.WIN)
@@ -37,8 +38,14 @@ class Game:
                     pygame.quit()
                     sys.exit()
 
+            if  ketto_mp_timer > 120:
+                self.pipes.append(Pipe(2000))
+                ketto_mp_timer = 0
+
             self.bird.move()
-            self.pipe.move()
+            for p in self.pipes:
+                p.move()
+            ketto_mp_timer += 1
 
             lost: bool = False
             lose_text: str = "Meghaltál"
@@ -69,4 +76,4 @@ class Game:
         self.bird: Bird = Bird(
             200, 200
         )  # ezek a paraméterek még nem jók ,csak tesztnek
-        self.pipe: Pipe = Pipe(50)
+        self.pipes: list[Pipe] = []
