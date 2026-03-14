@@ -20,7 +20,7 @@ class Game:
                 title,
                 (
                     settings.WIDTH // 2 - title.get_width() // 2,
-                    settings.HEIGHT // 2 - 150,
+                    settings.HEIGHT // 2 - 150 - 70,
                 ),
             )
             self.WIN.blit(
