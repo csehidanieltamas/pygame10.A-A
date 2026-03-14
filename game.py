@@ -9,35 +9,35 @@ class Game:
     def difficulty(self) -> None:
         choosing: bool = True
         while choosing:
-            self.bg.draw(self.WIN)
+            self._bg.draw(self._WIN)
 
-            title = self.SCORE_FONT.render("Válassz nehézséget!", 1, settings.WHITE)
-            easy = self.SCORE_FONT.render("1 / E - Könnyű", 1, settings.WHITE)
-            medium = self.SCORE_FONT.render("2 / M - Közepes", 1, settings.WHITE)
-            hard = self.SCORE_FONT.render("3 / H - Nehéz", 1, settings.WHITE)
+            title = self._SCORE_FONT.render("Válassz nehézséget!", 1, settings.WHITE)
+            easy = self._SCORE_FONT.render("1 / E - Könnyű", 1, settings.WHITE)
+            medium = self._SCORE_FONT.render("2 / M - Közepes", 1, settings.WHITE)
+            hard = self._SCORE_FONT.render("3 / H - Nehéz", 1, settings.WHITE)
 
-            self.WIN.blit(
+            self._WIN.blit(
                 title,
                 (
                     settings.WIDTH // 2 - title.get_width() // 2,
                     settings.HEIGHT // 2 - 150 - 70,
                 ),
             )
-            self.WIN.blit(
+            self._WIN.blit(
                 easy,
                 (
                     settings.WIDTH // 2 - easy.get_width() // 2,
                     settings.HEIGHT // 2 - 50,
                 ),
             )
-            self.WIN.blit(
+            self._WIN.blit(
                 medium,
                 (
                     settings.WIDTH // 2 - medium.get_width() // 2,
                     settings.HEIGHT // 2 + 50,
                 ),
             )
-            self.WIN.blit(
+            self._WIN.blit(
                 hard,
                 (
                     settings.WIDTH // 2 - hard.get_width() // 2,
@@ -49,7 +49,7 @@ class Game:
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.Run = False
+                    self._Run = False
                     choosing = False
                     pygame.quit()
 
@@ -69,81 +69,79 @@ class Game:
 
     def run(self) -> None:
         lost: bool = False
-        pont: int = 0
+        score: int = 0
         clock: pygame.time.Clock = pygame.time.Clock()
         timer: int = 0
 
-        while self.Run:
+        while self._Run:
             clock.tick(settings.FPS)
-            self.bg.move()
-            self.bg.draw(self.WIN)
-            self.bird.draw(self.WIN)
+            self._bg.move()
+            self._bg.draw(self._WIN)
+            self._bird.draw(self._WIN)
 
-            for p in self.pipes:
-                p.draw(self.WIN)
+            for p in self._pipes:
+                p.draw(self._WIN)
 
-            text = self.SCORE_FONT.render(str(pont), 1, settings.WHITE)
-            self.WIN.blit(text, (50, 50))
+            text = self._SCORE_FONT.render(str(score), 1, settings.WHITE)
+            self._WIN.blit(text, (50, 50))
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    self.Run = False
+                    self._Run = False
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self.bird.jump()
+                        self._bird.jump()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if event.button == 1:
-                        self.bird.jump()
+                        self._bird.jump()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if not lost:
-                        self.bird.jump()
+                        self._bird.jump()
                     else:
                         lost = False
-                        self.bird.bird_reset()
-                        self.pipes.clear()
-                        pont = 0
+                        self._bird.bird_reset()
+                        self._pipes.clear()
+                        score = 0
 
             if timer % 90 == 0:
-                pont += 1
+                score += 1
 
             if timer > 90:
-                self.pipes.append(Pipe(2000))
+                self._pipes.append(Pipe(2000))
                 timer = 0
 
-            for p in self.pipes:
-                if self.bird.rect.colliderect(p.rect) or self.bird.rect.colliderect(
-                    p.toprect
-                ):
+            for p in self._pipes:
+                if self._bird.rect.colliderect(p.rect) or self._bird.rect.colliderect(p.toprect):
                     lost = True
 
-            if self.bird.rect.top <= 0 or self.bird.rect.bottom >= settings.HEIGHT:
+            if self._bird.rect.top <= 0 or self._bird.rect.bottom >= settings.HEIGHT:
                 lost = True
 
             if not lost:
-                self.bird.move()
-                for p in self.pipes:
+                self._bird.move()
+                for p in self._pipes:
                     p.move()
                 timer += 1
             else:
-                self.bird.freeze()
+                self._bird.freeze()
 
             if lost:
                 lose_text: str = "Meghaltál"
-                text1 = self.SCORE_FONT.render(lose_text, 1, settings.WHITE)
-                self.WIN.blit(
+                text1 = self._SCORE_FONT.render(lose_text, 1, settings.WHITE)
+                self._WIN.blit(
                     text1,
                     (
                         settings.WIDTH // 2 - text1.get_width() // 2,
                         settings.HEIGHT // 2 - text1.get_height() // 2,
                     ),
                 )
-                text2 = self.SCORE_FONT2.render(
+                text2 = self._SCORE_FONT2.render(
                     "Nyomj egy egérgombot az újrakezdéshez!", 1, settings.WHITE
                 )
-                self.WIN.blit(
+                self._WIN.blit(
                     text2,
                     (
                         settings.WIDTH // 2 - text2.get_width() // 2,
@@ -156,14 +154,14 @@ class Game:
 
     def __init__(self) -> None:
         pygame.init()
-        self.score: int = 0
-        self.keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
-        self.SCORE_FONT: pygame.font.Font = pygame.font.SysFont("comicsans", 100)
-        self.SCORE_FONT2: pygame.font.Font = pygame.font.SysFont("comicsans", 50)
-        self.WIN: pygame.Surface = pygame.display.set_mode(
+        self._score: int = 0
+        self._keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed()
+        self._SCORE_FONT: pygame.font.Font = pygame.font.SysFont("comicsans", 100)
+        self._SCORE_FONT2: pygame.font.Font = pygame.font.SysFont("comicsans", 50)
+        self._WIN: pygame.Surface = pygame.display.set_mode(
             (settings.WIDTH, settings.HEIGHT)
         )
-        self.bird: Bird = Bird(150, 200)
-        self.pipes: list[Pipe] = []
-        self.bg: Bg = Bg()
-        self.Run: bool = True
+        self._bird: Bird = Bird(150, 200)
+        self._pipes: list[Pipe] = []
+        self._bg: Bg = Bg()
+        self._Run: bool = True
