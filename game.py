@@ -3,8 +3,6 @@ from bg import Bg
 from bird import Bird
 from pipe import Pipe
 import settings
-
-
 class Game:
     def difficulty(self) -> None:
         choosing: bool = True
@@ -93,9 +91,6 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self._bird.jump()
 
-                if event.type == pygame.MOUSEBUTTONDOWN:
-                    if event.button == 1:
-                        self._bird.jump()
 
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if not lost:

@@ -1,7 +1,5 @@
 import pygame
 import settings
-
-
 class Bird:
 
     @property
