@@ -1,14 +1,12 @@
 import random
 import pygame
 import settings
-
-
 class Pipe:
 
     @property
     def rect(self) -> pygame.Rect:
         return self._rect
-    
+
     @property
     def toprect(self) -> pygame.Rect:
         return self._toprect

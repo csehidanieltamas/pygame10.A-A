@@ -1,6 +1,5 @@
 import pygame
 from settings import WIDTH
-
 class Bg:
     def __init__(self) -> None:
         self._x: int = 0
