@@ -11,10 +11,17 @@ class Bird:
         self._player_img = pygame.image.load(
             "imageSource/Chicken version 3.png"
         ).convert_alpha()
+        self._player_img2 = pygame.image.load(
+            "imageSource/Chicken version 3.png"
+        ).convert_alpha()
         self._rect = self._player_img.get_rect(topleft=(x, y))
+        self.bird_leg: int = 1
 
     def draw(self, win: pygame.Surface):
-        win.blit(self._player_img, self.rect)
+        if self.bird_leg == 1:
+            win.blit(self._player_img, self.rect)
+        else:
+            win.blit(self._player_img2, self.rect)
 
     def move(self):
         self._y_vel += 0.5
@@ -34,3 +41,6 @@ class Bird:
         self._y_vel = 0
         self._rect.x = 150
         self._rect.y = 200
+
+    def leg_swap(self):
+        self.bird_leg = self.bird_leg * -1

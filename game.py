@@ -13,32 +13,40 @@ class Game:
             easy = self._SCORE_FONT.render("1 / E - Könnyű", 1, settings.WHITE)
             medium = self._SCORE_FONT.render("2 / M - Közepes", 1, settings.WHITE)
             hard = self._SCORE_FONT.render("3 / H - Nehéz", 1, settings.WHITE)
+            extreme = self._SCORE_FONT.render("4 / X - Extrém", 1, settings.WHITE)
 
             self._WIN.blit(
                 title,
                 (
                     settings.WIDTH // 2 - title.get_width() // 2,
-                    settings.HEIGHT // 2 - 150 - 70,
+                    settings.HEIGHT // 2 - 350,
                 ),
             )
             self._WIN.blit(
                 easy,
                 (
                     settings.WIDTH // 2 - easy.get_width() // 2,
-                    settings.HEIGHT // 2 - 50,
+                    settings.HEIGHT // 2 - 150,
                 ),
             )
             self._WIN.blit(
                 medium,
                 (
                     settings.WIDTH // 2 - medium.get_width() // 2,
-                    settings.HEIGHT // 2 + 50,
+                    settings.HEIGHT // 2 - 50,
                 ),
             )
             self._WIN.blit(
                 hard,
                 (
                     settings.WIDTH // 2 - hard.get_width() // 2,
+                    settings.HEIGHT // 2 + 50,
+                ),
+            )
+            self._WIN.blit(
+                extreme,
+                (
+                    settings.WIDTH // 2 - extreme.get_width() // 2,
                     settings.HEIGHT // 2 + 150,
                 ),
             )
@@ -64,6 +72,10 @@ class Game:
                         settings.PIPE_VEL = 15
                         settings.PIPE_GAP = 700
                         choosing = False
+                    elif event.key == pygame.K_4 or event.key == pygame.K_x:
+                        settings.PIPE_VEL = 25
+                        settings.PIPE_GAP = 700
+                        choosing = False
 
     def run(self) -> None:
         lost: bool = False
@@ -79,6 +91,9 @@ class Game:
 
             for p in self._pipes:
                 p.draw(self._WIN)
+            
+            if timer % 90 == 0:
+                score += 1
 
             text = self._SCORE_FONT.render(str(score), 1, settings.WHITE)
             self._WIN.blit(text, (50, 50))
@@ -100,9 +115,6 @@ class Game:
                         self._bird.bird_reset()
                         self._pipes.clear()
                         score = 0
-
-            if timer % 90 == 0:
-                score += 1
 
             if timer > 90:
                 self._pipes.append(Pipe(2000))
