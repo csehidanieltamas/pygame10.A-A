@@ -160,3 +160,5 @@ class Game:
         self._pipes: list[Pipe] = []
         self._bg: Bg = Bg()
         self._Run: bool = True
+        pygame.mixer.music.load("MusicAssets/Flappy Bird Background Music.mp3")
+        pygame.mixer.music.play(-1)
