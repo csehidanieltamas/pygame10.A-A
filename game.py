@@ -5,8 +5,7 @@ from pipe import Pipe
 import settings
 class Game:
     def difficulty(self) -> None:
-        choosing: bool = True
-        while choosing:
+        while self._choosing:
             self._bg.draw(self._WIN)
 
             title = self._SCORE_FONT.render("Válassz nehézséget!", 1, settings.WHITE)
@@ -56,32 +55,41 @@ class Game:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self._Run = False
-                    choosing = False
+                    self._choosing = False
                     pygame.quit()
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_1 or event.key == pygame.K_e:
                         settings.PIPE_VEL = 5
                         settings.PIPE_GAP = 900
-                        choosing = False
+                        self._choosing = False
+                        self._Run = True
+                        self.run()
                     elif event.key == pygame.K_2 or event.key == pygame.K_m:
                         settings.PIPE_VEL = 10
                         settings.PIPE_GAP = 800
-                        choosing = False
+                        self._choosing = False
+                        self._Run = True
+                        self.run()
                     elif event.key == pygame.K_3 or event.key == pygame.K_h:
                         settings.PIPE_VEL = 15
                         settings.PIPE_GAP = 700
-                        choosing = False
+                        self._choosing = False
+                        self._Run = True
+                        self.run()
                     elif event.key == pygame.K_4 or event.key == pygame.K_x:
                         settings.PIPE_VEL = 25
                         settings.PIPE_GAP = 700
-                        choosing = False
+                        self._choosing = False
+                        self._Run = True
+                        self.run()
 
     def run(self) -> None:
         lost: bool = False
         score: int = 0
         clock: pygame.time.Clock = pygame.time.Clock()
         timer: int = 0
+        timer2: int = 8
 
         while self._Run:
             clock.tick(settings.FPS)
@@ -91,7 +99,6 @@ class Game:
 
             for p in self._pipes:
                 p.draw(self._WIN)
-            
             if timer % 90 == 0:
                 score += 1
 
@@ -107,18 +114,26 @@ class Game:
                         self._bird.jump()
 
 
+                if event.type == pygame.KEYDOWN:
+                    if event.key == pygame.K_SPACE:
+                        if not lost:
+                            self._bird.jump()
+                        else:
+                            lost = False
+                            self._bird.bird_reset()
+                            self._pipes.clear()
+                            score = 0
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    if not lost:
-                        self._bird.jump()
-                    else:
-                        lost = False
-                        self._bird.bird_reset()
-                        self._pipes.clear()
-                        score = 0
+                    if lost:
+                        self._Run = False
+                        self._choosing = True
 
             if timer > 90:
                 self._pipes.append(Pipe(2000))
                 timer = 0
+            if timer2 > 45:
+                self._bird.leg_swap()
+                timer2 = 0
 
             for p in self._pipes:
                 if self._bird.rect.colliderect(p.rect) or self._bird.rect.colliderect(p.toprect):
@@ -146,7 +161,7 @@ class Game:
                     ),
                 )
                 text2 = self._SCORE_FONT2.render(
-                    "Nyomj egy egérgombot az újrakezdéshez!", 1, settings.WHITE
+                    "Nyomj egy space-t az újrakezdéshez!", 1, settings.WHITE
                 )
                 self._WIN.blit(
                     text2,
@@ -155,8 +170,19 @@ class Game:
                         settings.HEIGHT // 2 - text2.get_height() // 2 + 100,
                     ),
                 )
+                text3 = self._SCORE_FONT2.render(
+                    "Nyomj egy egérgombot a nehézség változtatásához!", 1, settings.WHITE
+                )
+                self._WIN.blit(
+                    text3,
+                    (
+                        settings.WIDTH // 2 - text2.get_width() // 2,
+                        settings.HEIGHT // 2 - text2.get_height() // 2 + 180,
+                    ),
+                )
 
             pygame.display.update()
+        self.difficulty()
         pygame.quit()
 
     def __init__(self) -> None:
@@ -172,5 +198,6 @@ class Game:
         self._pipes: list[Pipe] = []
         self._bg: Bg = Bg()
         self._Run: bool = True
+        self._choosing: bool = True
         pygame.mixer.music.load("MusicAssets/Flappy Bird Background Music.mp3")
         pygame.mixer.music.play(-1)
