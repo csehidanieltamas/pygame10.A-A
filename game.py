@@ -125,8 +125,14 @@ class Game:
                             score = 0
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if lost:
+                        lost = False
+                        self._bird.bird_reset()
+                        self._pipes.clear()
+                        score = 0
                         self._Run = False
                         self._choosing = True
+                    else:
+                        self._bird.jump()
 
             if timer > 90:
                 self._pipes.append(Pipe(2000))
@@ -157,7 +163,7 @@ class Game:
                     text1,
                     (
                         settings.WIDTH // 2 - text1.get_width() // 2,
-                        settings.HEIGHT // 2 - text1.get_height() // 2,
+                        settings.HEIGHT // 2 - text1.get_height() // 2 - 200,
                     ),
                 )
                 text2 = self._SCORE_FONT2.render(
@@ -167,7 +173,7 @@ class Game:
                     text2,
                     (
                         settings.WIDTH // 2 - text2.get_width() // 2,
-                        settings.HEIGHT // 2 - text2.get_height() // 2 + 100,
+                        settings.HEIGHT // 2 - text2.get_height() // 2,
                     ),
                 )
                 text3 = self._SCORE_FONT2.render(
@@ -176,8 +182,8 @@ class Game:
                 self._WIN.blit(
                     text3,
                     (
-                        settings.WIDTH // 2 - text2.get_width() // 2,
-                        settings.HEIGHT // 2 - text2.get_height() // 2 + 180,
+                        settings.WIDTH // 2 - text2.get_width() // 2 - 150,
+                        settings.HEIGHT // 2 - text2.get_height() // 2 + 100,
                     ),
                 )
 
