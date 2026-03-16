@@ -19,8 +19,9 @@ class Pipe:
         self._toprect = self._player_img.get_rect(topleft=(x, self._y - settings.PIPE_GAP))
 
     def move(self) -> None:
-        self._rect.x -= settings.PIPE_VEL
-        self._toprect.x -= settings.PIPE_VEL
+        for _ in range(settings.PIPE_VEL):
+            self._rect.x -= 1
+            self._toprect.x -= 1
 
     def draw(self, win: pygame.Surface) -> None:
         win.blit(pygame.transform.flip(self._player_img, False, True), self._toprect)
