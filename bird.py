@@ -9,10 +9,10 @@ class Bird:
     def __init__(self, x: int, y: int):
         self._y_vel: float = 0
         self._player_img = pygame.image.load(
-            "imageSource/Chicken version 3.png"
+            "imageSource/Chicken.png"
         ).convert_alpha()
         self._player_img2 = pygame.image.load(
-            "imageSource/Chicken version 3.png"
+            "imageSource/Chicken 2.png"
         ).convert_alpha()
         self._rect = self._player_img.get_rect(topleft=(x, y))
         self.bird_leg: int = 1
