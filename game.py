@@ -137,12 +137,12 @@ class Game:
             if timer > 90:
                 self._pipes.append(Pipe(2000))
                 timer = 0
-            if timer2 > 45:
+            if timer2 > 35:
                 self._bird.leg_swap()
                 timer2 = 0
 
             for p in self._pipes:
-                if self._bird.rect.colliderect(p.rect) or self._bird.rect.colliderect(p.toprect):
+                if self._bird.rect.colliderect(p.rect) or self._bird.rect.colliderect(p.toprect) or self._bird.rect2.colliderect(p.rect) or self._bird.rect2.colliderect(p.toprect):
                     lost = True
 
             if self._bird.rect.top <= 0 or self._bird.rect.bottom >= settings.HEIGHT:
@@ -153,6 +153,7 @@ class Game:
                 for p in self._pipes:
                     p.move()
                 timer += 1
+                timer2 += 1
             else:
                 self._bird.freeze()
 
