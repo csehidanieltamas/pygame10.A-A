@@ -101,6 +101,7 @@ class Game:
                 p.draw(self._WIN)
             if timer % 90 == 0:
                 score += 1
+                self._score_sound.play()
 
             text = self._SCORE_FONT.render(str(score), 1, settings.WHITE)
             self._WIN.blit(text, (50, 50))
@@ -208,3 +209,4 @@ class Game:
         self._choosing: bool = True
         pygame.mixer.music.load("MusicAssets/Flappy Bird Background Music.mp3")
         pygame.mixer.music.play(-1)
+        self._score_sound = pygame.mixer.Sound("MusicAssets/Score Sound Effect.mp3")
