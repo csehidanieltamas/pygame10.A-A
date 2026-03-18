@@ -3,16 +3,28 @@ from bg import Bg
 from bird import Bird
 from pipe import Pipe
 import settings
+
+
 class Game:
     def difficulty(self) -> None:
         while self._choosing:
             self._bg.draw(self._WIN)
 
-            title = self._SCORE_FONT.render("Válassz nehézséget!", 1, settings.WHITE)
-            easy = self._SCORE_FONT.render("1 / E - Könnyű", 1, settings.WHITE)
-            medium = self._SCORE_FONT.render("2 / M - Közepes", 1, settings.WHITE)
-            hard = self._SCORE_FONT.render("3 / H - Nehéz", 1, settings.WHITE)
-            extreme = self._SCORE_FONT.render("4 / X - Extrém", 1, settings.WHITE)
+            title: pygame.Surface = self._SCORE_FONT.render(
+                "Válassz nehézséget!", 1, settings.WHITE
+            )
+            easy: pygame.Surface = self._SCORE_FONT.render(
+                "1 / E - Könnyű", 1, settings.WHITE
+            )
+            medium: pygame.Surface = self._SCORE_FONT.render(
+                "2 / M - Közepes", 1, settings.WHITE
+            )
+            hard: pygame.Surface = self._SCORE_FONT.render(
+                "3 / H - Nehéz", 1, settings.WHITE
+            )
+            extreme: pygame.Surface = self._SCORE_FONT.render(
+                "4 / X - Extrém", 1, settings.WHITE
+            )
 
             self._WIN.blit(
                 title,
@@ -103,7 +115,9 @@ class Game:
                 score += 1
                 self._score_sound.play()
 
-            text = self._SCORE_FONT.render(str(score), 1, settings.WHITE)
+            text: pygame.Surface = self._SCORE_FONT.render(
+                str(score), 1, settings.WHITE
+            )
             self._WIN.blit(text, (50, 50))
 
             for event in pygame.event.get():
@@ -113,7 +127,6 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         self._bird.jump()
-
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
@@ -143,7 +156,12 @@ class Game:
                 timer2 = 0
 
             for p in self._pipes:
-                if self._bird.rect.colliderect(p.rect) or self._bird.rect.colliderect(p.toprect) or self._bird.rect2.colliderect(p.rect) or self._bird.rect2.colliderect(p.toprect):
+                if (
+                    self._bird.rect.colliderect(p.rect)
+                    or self._bird.rect.colliderect(p.toprect)
+                    or self._bird.rect2.colliderect(p.rect)
+                    or self._bird.rect2.colliderect(p.toprect)
+                ):
                     lost = True
 
             if self._bird.rect.top <= 0 or self._bird.rect.bottom >= settings.HEIGHT:
@@ -160,7 +178,9 @@ class Game:
 
             if lost:
                 lose_text: str = "Meghaltál"
-                text1 = self._SCORE_FONT.render(lose_text, 1, settings.WHITE)
+                text1: pygame.Surface = self._SCORE_FONT.render(
+                    lose_text, 1, settings.WHITE
+                )
                 self._WIN.blit(
                     text1,
                     (
@@ -168,7 +188,7 @@ class Game:
                         settings.HEIGHT // 2 - text1.get_height() // 2 - 200,
                     ),
                 )
-                text2 = self._SCORE_FONT2.render(
+                text2: pygame.Surface = self._SCORE_FONT2.render(
                     "Nyomj egy space-t az újrakezdéshez!", 1, settings.WHITE
                 )
                 self._WIN.blit(
@@ -178,8 +198,10 @@ class Game:
                         settings.HEIGHT // 2 - text2.get_height() // 2,
                     ),
                 )
-                text3 = self._SCORE_FONT2.render(
-                    "Nyomj egy egérgombot a nehézség változtatásához!", 1, settings.WHITE
+                text3: pygame.Surface = self._SCORE_FONT2.render(
+                    "Nyomj egy egérgombot a nehézség változtatásához!",
+                    1,
+                    settings.WHITE,
                 )
                 self._WIN.blit(
                     text3,

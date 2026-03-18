@@ -1,24 +1,27 @@
 import pygame
 import settings
+
+
 class Bird:
 
     @property
     def rect(self) -> pygame.Rect:
         return self._rect
+
     @property
     def rect2(self) -> pygame.Rect:
         return self._rect2
 
     def __init__(self, x: int, y: int):
         self._y_vel: float = 0
-        self._player_img = pygame.image.load(
+        self._player_img: pygame.Surface = pygame.image.load(
             "imageSource/Chicken.png"
         ).convert_alpha()
-        self._player_img2 = pygame.image.load(
+        self._player_img2: pygame.Surface = pygame.image.load(
             "imageSource/Chicken 2.png"
         ).convert_alpha()
-        self._rect = self._player_img.get_rect(topleft=(x, y))
-        self._rect2 = self._player_img2.get_rect(topleft=(x, y))
+        self._rect: pygame.Rect = self._player_img.get_rect(topleft=(x, y))
+        self._rect2: pygame.Rect = self._player_img2.get_rect(topleft=(x, y))
         self.bird_leg: int = 1
 
     def draw(self, win: pygame.Surface):

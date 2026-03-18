@@ -1,9 +1,13 @@
 import pygame
 from settings import WIDTH
+
+
 class Bg:
     def __init__(self) -> None:
         self._x: int = 0
-        self._player_img = pygame.image.load("imageSource/Background.png")
+        self._player_img: pygame.Surface = pygame.image.load(
+            "imageSource/Background.png"
+        )
 
     def move(self) -> None:
         self._x -= 1
