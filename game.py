@@ -74,29 +74,21 @@ class Game:
                     if event.key == pygame.K_1 or event.key == pygame.K_e:
                         settings.PIPE_VEL = 5
                         settings.PIPE_GAP = 900
-                        self._choosing = False
-                        self._Run = True
-                        self.run()
                     elif event.key == pygame.K_2 or event.key == pygame.K_m:
                         settings.PIPE_VEL = 10
                         settings.PIPE_GAP = 800
-                        self._choosing = False
-                        self._Run = True
-                        self.run()
                     elif event.key == pygame.K_3 or event.key == pygame.K_h:
                         settings.PIPE_VEL = 15
                         settings.PIPE_GAP = 700
-                        self._choosing = False
-                        self._Run = True
-                        self.run()
                     elif event.key == pygame.K_4 or event.key == pygame.K_x:
                         settings.PIPE_VEL = 25
                         settings.PIPE_GAP = 700
-                        self._choosing = False
-                        self._Run = True
-                        self.run()
 
-    def run(self) -> None:
+                    self._choosing = False
+                    self._Run = True
+                    self._run()
+
+    def _run(self) -> None:
         lost: bool = False
         score: int = 0
         clock: pygame.time.Clock = pygame.time.Clock()
@@ -131,6 +123,7 @@ class Game:
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
                         if not lost:
+                            self._bird.leg_swap()
                             self._bird.jump()
                         else:
                             lost = False
@@ -146,14 +139,12 @@ class Game:
                         self._Run = False
                         self._choosing = True
                     else:
+                        self._bird.leg_swap()
                         self._bird.jump()
 
             if timer > 90:
                 self._pipes.append(Pipe(2000))
                 timer = 0
-            if timer2 > 35:
-                self._bird.leg_swap()
-                timer2 = 0
 
             for p in self._pipes:
                 if (
@@ -231,4 +222,4 @@ class Game:
         self._choosing: bool = True
         pygame.mixer.music.load("MusicAssets/Flappy Bird Background Music.mp3")
         pygame.mixer.music.play(-1)
-        self._score_sound = pygame.mixer.Sound("MusicAssets/Score Sound Effect.mp3")
+        self._score_sound: pygame.mixer.Sound = pygame.mixer.Sound("MusicAssets/Score Sound Effect.mp3")
