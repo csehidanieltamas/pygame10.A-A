@@ -126,10 +126,6 @@ class Game:
 
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_SPACE:
-                        self._bird.jump()
-
-                if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE:
                         if not lost:
                             self._bird.jump()
                         else:
