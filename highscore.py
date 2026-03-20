@@ -2,7 +2,7 @@ from datetime import datetime
 
 
 class Highscore:
-    __aktuális_dátum: str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    __aktuális_dátum: str = datetime.now().strftime("%Y.%m.%d %H:%M:%S")
     __score: int
     __gamemode: str | None
 
