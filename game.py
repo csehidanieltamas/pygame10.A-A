@@ -110,11 +110,11 @@ class Game:
             for p in self._pipes: # csövek rajzolása
                 p.draw(self._WIN)
             if self._timer % 90 == 0: # pont adás és hang hozzá
-                score += 1
+                self._score += 1
                 self._score_sound.play()
 
             text: pygame.Surface = self._SCORE_FONT.render(
-                str(score), 1, settings.WHITE
+                str(self._score), 1, settings.WHITE
             )
             self._WIN.blit(text, (50, 50))
 
@@ -131,9 +131,9 @@ class Game:
                             self._lost = False
                             self._bird.bird_reset()
                             self._pipes.clear()
-                            h: Highscore = Highscore(score, diff)
+                            h: Highscore = Highscore(self._score, diff)
                             h.highscore_kiírás()
-                            score = 0
+                            self._score = 0
 
                 if event.type == pygame.MOUSEBUTTONDOWN: # ugrás / játékmód váltás
                     if event.button == 1:
@@ -141,9 +141,9 @@ class Game:
                             self._lost = False
                             self._bird.bird_reset()
                             self._pipes.clear()
-                            h: Highscore = Highscore(score, diff)
+                            h: Highscore = Highscore(self._score, diff)
                             h.highscore_kiírás()
-                            score = 0
+                            self._score = 0
                             self._Run = False
                             self._choosing = True
                         else:
