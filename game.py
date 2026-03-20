@@ -129,8 +129,8 @@ class Game:
 
                 if event.type == pygame.MOUSEBUTTONDOWN: # ugrás / játékmód váltás
                     if event.button == 1:
-                        if lost:
-                            lost = False
+                        if self._lost:
+                            self._lost = False
                             self._bird.bird_reset()
                             self._pipes.clear()
                             score = 0
