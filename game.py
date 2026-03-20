@@ -126,17 +126,19 @@ class Game:
                             self._bird.bird_reset()
                             self._pipes.clear()
                             score = 0
+
                 if event.type == pygame.MOUSEBUTTONDOWN: # ugrás / játékmód váltás
-                    if self._lost:
-                        self._lost = False
-                        self._bird.bird_reset()
-                        self._pipes.clear()
-                        score = 0
-                        self._Run = False
-                        self._choosing = True
-                    else:
-                        self._bird.leg_swap()
-                        self._bird.jump()
+                    if event.button == 1:
+                        if lost:
+                            lost = False
+                            self._bird.bird_reset()
+                            self._pipes.clear()
+                            score = 0
+                            self._Run = False
+                            self._choosing = True
+                        else:
+                            self._bird.leg_swap()
+                            self._bird.jump()
 
             if self._timer > 90: # csövek létrehozása 90 ms-onként
                 self._pipes.append(Pipe(2000))
