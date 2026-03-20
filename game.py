@@ -1,12 +1,14 @@
 import pygame
 from bg import Bg
 from bird import Bird
+from highscore import Highscore
 from pipe import Pipe
 import settings
 
 
 class Game:
-    def difficulty(self) -> None: # nehézség választás
+    def difficulty(self) -> str | None:
+        választás: str | None = "alap"
         while self._choosing:
             self._bg.draw(self._WIN)
 
@@ -77,24 +79,28 @@ class Game:
                     if event.key == pygame.K_1 or event.key == pygame.K_e:
                         settings.PIPE_VEL = 5
                         settings.PIPE_GAP = 900
+                        választás = "Könnyű"
                     elif event.key == pygame.K_2 or event.key == pygame.K_m:
                         settings.PIPE_VEL = 10
                         settings.PIPE_GAP = 800
+                        választás = "Közepes"
                     elif event.key == pygame.K_3 or event.key == pygame.K_h:
                         settings.PIPE_VEL = 15
                         settings.PIPE_GAP = 700
+                        választás = "Nehéz"
                     elif event.key == pygame.K_4 or event.key == pygame.K_x:
                         settings.PIPE_VEL = 25
                         settings.PIPE_GAP = 700
+                        választás = "Extrém"
 
                     # átváltás a játékra
                     self._choosing = False
                     self._Run = True
                     self._run()
+        return választás
 
     def _run(self) -> None:
-        score: int = 0
-
+        diff: str | None = self.difficulty()
         while self._Run:
             self._clock.tick(settings.FPS) # játék futtatása beállított sebességgel
             self._bg.move() # háttér mozgatása
@@ -125,6 +131,8 @@ class Game:
                             self._lost = False
                             self._bird.bird_reset()
                             self._pipes.clear()
+                            h: Highscore = Highscore(score, diff)
+                            h.highscore_kiírás()
                             score = 0
 
                 if event.type == pygame.MOUSEBUTTONDOWN: # ugrás / játékmód váltás
@@ -133,6 +141,8 @@ class Game:
                             self._lost = False
                             self._bird.bird_reset()
                             self._pipes.clear()
+                            h: Highscore = Highscore(score, diff)
+                            h.highscore_kiírás()
                             score = 0
                             self._Run = False
                             self._choosing = True
