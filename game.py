@@ -7,8 +7,7 @@ import settings
 
 
 class Game:
-    def difficulty(self) -> str | None:
-        választás: str | None = "alap"
+    def difficulty(self) -> None:
         while self._choosing:
             self._bg.draw(self._WIN)
 
@@ -79,28 +78,26 @@ class Game:
                     if event.key == pygame.K_1 or event.key == pygame.K_e:
                         settings.PIPE_VEL = 5
                         settings.PIPE_GAP = 900
-                        választás = "Könnyű"
+                        self._diff = "Könnyű"
                     elif event.key == pygame.K_2 or event.key == pygame.K_m:
                         settings.PIPE_VEL = 10
                         settings.PIPE_GAP = 800
-                        választás = "Közepes"
+                        self._diff = "Közepes"
                     elif event.key == pygame.K_3 or event.key == pygame.K_h:
                         settings.PIPE_VEL = 15
                         settings.PIPE_GAP = 700
-                        választás = "Nehéz"
+                        self._diff = "Nehéz"
                     elif event.key == pygame.K_4 or event.key == pygame.K_x:
                         settings.PIPE_VEL = 25
                         settings.PIPE_GAP = 700
-                        választás = "Extrém"
+                        self._diff = "Extrém"
 
                     # átváltás a játékra
                     self._choosing = False
                     self._Run = True
                     self._run()
-        return választás
 
     def _run(self) -> None:
-        diff: str | None = self.difficulty()
         while self._Run:
             self._clock.tick(settings.FPS) # játék futtatása beállított sebességgel
             self._bg.move() # háttér mozgatása
@@ -131,7 +128,7 @@ class Game:
                             self._lost = False
                             self._bird.bird_reset()
                             self._pipes.clear()
-                            h: Highscore = Highscore(self._score, diff)
+                            h: Highscore = Highscore(self._score, self._diff)
                             h.highscore_kiírás()
                             self._score = 0
 
@@ -141,7 +138,7 @@ class Game:
                             self._lost = False
                             self._bird.bird_reset()
                             self._pipes.clear()
-                            h: Highscore = Highscore(self._score, diff)
+                            h: Highscore = Highscore(self._score, self._diff)
                             h.highscore_kiírás()
                             self._score = 0
                             self._Run = False
@@ -201,6 +198,7 @@ class Game:
 
     def __init__(self) -> None:
         pygame.init() # pygame inicializálása
+        self._diff: str = ""
         self._lost: bool = False # bool, elmondja vesztettünk-e
         self._score: int = 0 # pontok inicializálása
         self._timer: int = 0 # időzítő pontadáshoz inicializálása
