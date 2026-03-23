@@ -235,7 +235,9 @@ class Game:
         pygame.mixer.music.load(
             "MusicAssets/Flappy Bird Background Music.mp3"
         )  # háttérzene inicializálása
-        pygame.mixer.music.play(-1)  # háttérzene lejátszása
+        pygame.mixer.music.play(-1)
+        pygame.mixer.music.set_volume(0.3)  # háttérzene lejátszása
         self._score_sound: pygame.mixer.Sound = pygame.mixer.Sound(
             "MusicAssets/Score Sound Effect.mp3"
         )  # pont szerzési hang inicializálása
+        self._score_sound.set_volume(0.10)
