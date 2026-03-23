@@ -99,14 +99,14 @@ class Game:
 
     def _run(self) -> None:
         while self._Run:
-            self._clock.tick(settings.FPS) # játék futtatása beállított sebességgel
-            self._bg.move() # háttér mozgatása
-            self._bg.draw(self._WIN) # háttér rajzolása
-            self._bird.draw(self._WIN) # madár rajzolása
+            self._clock.tick(settings.FPS)  # játék futtatása beállított sebességgel
+            self._bg.move()  # háttér mozgatása
+            self._bg.draw(self._WIN)  # háttér rajzolása
+            self._bird.draw(self._WIN)  # madár rajzolása
 
-            for p in self._pipes: # csövek rajzolása
+            for p in self._pipes:  # csövek rajzolása
                 p.draw(self._WIN)
-            if self._timer % 90 == 0: # pont adás és hang hozzá
+            if self._timer % 90 == 0:  # pont adás és hang hozzá
                 self._score += 1
                 self._score_sound.play()
 
@@ -116,11 +116,11 @@ class Game:
             self._WIN.blit(text, (50, 50))
 
             for event in pygame.event.get():
-                if event.type == pygame.QUIT: # kilépés
+                if event.type == pygame.QUIT:  # kilépés
                     self._Run = False
 
                 if event.type == pygame.KEYDOWN:
-                    if event.key == pygame.K_SPACE: # ugrás / újraéledés
+                    if event.key == pygame.K_SPACE:  # ugrás / újraéledés
                         if not self._lost:
                             self._bird.leg_swap()
                             self._bird.jump()
@@ -132,7 +132,7 @@ class Game:
                             h.highscore_kiírás()
                             self._score = 0
 
-                if event.type == pygame.MOUSEBUTTONDOWN: # ugrás / játékmód váltás
+                if event.type == pygame.MOUSEBUTTONDOWN:  # ugrás / játékmód váltás
                     if event.button == 1:
                         if self._lost:
                             self._lost = False
@@ -147,29 +147,30 @@ class Game:
                             self._bird.leg_swap()
                             self._bird.jump()
 
-            if self._timer > 90: # csövek létrehozása 90 ms-onként
+            if self._timer > 90:  # csövek létrehozása 90 ms-onként
                 self._pipes.append(Pipe(2000))
                 self._timer = 0
 
-            for p in self._pipes: # ütközés észlelése -> halál?
-                if (
-                    self._bird.rect.colliderect(p.rect)
-                    or self._bird.rect.colliderect(p.toprect)
+            for p in self._pipes:  # ütközés észlelése -> halál?
+                if self._bird.rect.colliderect(p.rect) or self._bird.rect.colliderect(
+                    p.toprect
                 ):
                     self._lost = True
 
-            if self._bird.rect.top <= 0 or self._bird.rect.bottom >= settings.HEIGHT: # talaj/tető érintése -> halál?
+            if (
+                self._bird.rect.top <= 0 or self._bird.rect.bottom >= settings.HEIGHT
+            ):  # talaj/tető érintése -> halál?
                 self._lost = True
 
-            if not self._lost: # csövek és madár mozgatása ha él a madár
+            if not self._lost:  # csövek és madár mozgatása ha él a madár
                 self._bird.move()
                 for p in self._pipes:
                     p.move()
                 self._timer += 1
-            else: # fagyasztás, ha halott
+            else:  # fagyasztás, ha halott
                 self._bird.freeze()
 
-            if self._lost: # madár halála esetén halálüzenet kiírása
+            if self._lost:  # madár halála esetén halálüzenet kiírása
                 self._WIN.blit(
                     self._text1,
                     (
@@ -197,26 +198,44 @@ class Game:
         pygame.quit()
 
     def __init__(self) -> None:
-        pygame.init() # pygame inicializálása
+        pygame.init()  # pygame inicializálása
         self._diff: str = ""
-        self._lost: bool = False # bool, elmondja vesztettünk-e
-        self._score: int = 0 # pontok inicializálása
-        self._timer: int = 0 # időzítő pontadáshoz inicializálása
-        self._clock: pygame.time.Clock = pygame.time.Clock() # óra inicializálása
-        self._keys: pygame.key.ScancodeWrapper = pygame.key.get_pressed() # billentyűzet inicializálása
-        self._SCORE_FONT: pygame.font.Font = pygame.font.SysFont("comicsans", 100) # első betűtípus inicializálása
-        self._SCORE_FONT2: pygame.font.Font = pygame.font.SysFont("comicsans", 50) # második betűtípus inicializálása
-        self._text1: pygame.Surface = self._SCORE_FONT.render("Meghaltál", 1, settings.WHITE) # első halálszöveg inicializálása
-        self._text2: pygame.Surface = self._SCORE_FONT2.render("Nyomj egy space-t az újrakezdéshez!", 1, settings.WHITE) # második halálszöveg inicializálása
-        self._text3: pygame.Surface = self._SCORE_FONT2.render("Nyomj egy egérgombot a nehézség változtatásához!",1,settings.WHITE,) # harmadik halálszöveg inicializálása
+        self._lost: bool = False  # bool, elmondja vesztettünk-e
+        self._score: int = 0  # pontok inicializálása
+        self._timer: int = 0  # időzítő pontadáshoz inicializálása
+        self._clock: pygame.time.Clock = pygame.time.Clock()  # óra inicializálása
+        self._keys: pygame.key.ScancodeWrapper = (
+            pygame.key.get_pressed()
+        )  # billentyűzet inicializálása
+        self._SCORE_FONT: pygame.font.Font = pygame.font.SysFont(
+            "comicsans", 100
+        )  # első betűtípus inicializálása
+        self._SCORE_FONT2: pygame.font.Font = pygame.font.SysFont(
+            "comicsans", 50
+        )  # második betűtípus inicializálása
+        self._text1: pygame.Surface = self._SCORE_FONT.render(
+            "Meghaltál", 1, settings.WHITE
+        )  # első halálszöveg inicializálása
+        self._text2: pygame.Surface = self._SCORE_FONT2.render(
+            "Nyomj egy space-t az újrakezdéshez!", 1, settings.WHITE
+        )  # második halálszöveg inicializálása
+        self._text3: pygame.Surface = self._SCORE_FONT2.render(
+            "Nyomj egy egérgombot a nehézség változtatásához!",
+            1,
+            settings.WHITE,
+        )  # harmadik halálszöveg inicializálása
         self._WIN: pygame.Surface = pygame.display.set_mode(
             (settings.WIDTH, settings.HEIGHT)
-        ) # képernyő inicializálása
-        self._bird: Bird = Bird(150, 200) # madár inicializálása
-        self._pipes: list[Pipe] = [] # csövek listájának inicializálása
-        self._bg: Bg = Bg() # háttér inicializálása
-        self._Run: bool = True # bool ami eldönti, hogy lefusson-e a játék
-        self._choosing: bool = True # bool ami eldönti, hogy választjuk e a nehézséget
-        pygame.mixer.music.load("MusicAssets/Flappy Bird Background Music.mp3") # háttérzene inicializálása
-        pygame.mixer.music.play(-1) # háttérzene lejátszása
-        self._score_sound: pygame.mixer.Sound = pygame.mixer.Sound("MusicAssets/Score Sound Effect.mp3") # pont szerzési hang inicializálása
+        )  # képernyő inicializálása
+        self._bird: Bird = Bird(150, 200)  # madár inicializálása
+        self._pipes: list[Pipe] = []  # csövek listájának inicializálása
+        self._bg: Bg = Bg()  # háttér inicializálása
+        self._Run: bool = True  # bool ami eldönti, hogy lefusson-e a játék
+        self._choosing: bool = True  # bool ami eldönti, hogy választjuk e a nehézséget
+        pygame.mixer.music.load(
+            "MusicAssets/Flappy Bird Background Music.mp3"
+        )  # háttérzene inicializálása
+        pygame.mixer.music.play(-1)  # háttérzene lejátszása
+        self._score_sound: pygame.mixer.Sound = pygame.mixer.Sound(
+            "MusicAssets/Score Sound Effect.mp3"
+        )  # pont szerzési hang inicializálása
