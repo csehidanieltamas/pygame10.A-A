@@ -104,8 +104,10 @@ class Game:
             self._bg.draw(self._WIN)  # háttér rajzolása
             self._bird.draw(self._WIN)  # madár rajzolása
 
-            for p in self._pipes:  # csövek rajzolása
+            for p in self._pipes:  # csövek rajzolása és törlése
                 p.draw(self._WIN)
+                if p.rect.x < 20:
+                    self._pipes.remove(p)
             if self._timer % 90 == 0:  # pont adás és hang hozzá
                 self._score += 1
                 self._score_sound.play()

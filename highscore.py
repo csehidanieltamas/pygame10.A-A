@@ -2,7 +2,7 @@ from datetime import datetime
 
 
 class Highscore:
-    __aktuális_dátum: str = datetime.now().strftime("%Y.%m.%d %H:%M:%S")
+    __actual_date: str = datetime.now().strftime("%Y.%m.%d %H:%M:%S")
     __score: int
     __gamemode: str
 
@@ -13,5 +13,5 @@ class Highscore:
     def highscore_kiírás(self) -> None:
         with open("Highscore.txt", "a", encoding="utf-8") as file:
             file.write(
-                f"Pont: {self.__score}, Nehézség: {self.__gamemode}, Dátum: {self.__aktuális_dátum}\n"
+                f"Pont: {self.__score}, Nehézség: {self.__gamemode}, Dátum: {self.__actual_date}\n"
             )
