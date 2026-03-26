@@ -104,8 +104,10 @@ class Game:
             self._bg.draw(self._WIN)  # háttér rajzolása
             self._bird.draw(self._WIN)  # madár rajzolása
 
-            for p in self._pipes:  # csövek rajzolása
+            for p in self._pipes:  # csövek rajzolása és törlése
                 p.draw(self._WIN)
+                if p.rect.x < 20:
+                    self._pipes.remove(p)
             if self._timer % 90 == 0:  # pont adás és hang hozzá
                 self._score += 1
                 self._score_sound.play()
@@ -129,7 +131,7 @@ class Game:
                             self._bird.bird_reset()
                             self._pipes.clear()
                             h: Highscore = Highscore(self._score, self._diff)
-                            h.highscore_kiírás()
+                            h.highscore_write()
                             self._score = 0
 
                 if event.type == pygame.MOUSEBUTTONDOWN:  # ugrás / játékmód váltás
@@ -139,7 +141,7 @@ class Game:
                             self._bird.bird_reset()
                             self._pipes.clear()
                             h: Highscore = Highscore(self._score, self._diff)
-                            h.highscore_kiírás()
+                            h.highscore_write()
                             self._score = 0
                             self._Run = False
                             self._choosing = True
