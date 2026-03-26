@@ -131,7 +131,7 @@ class Game:
                             self._bird.bird_reset()
                             self._pipes.clear()
                             h: Highscore = Highscore(self._score, self._diff)
-                            h.highscore_kiírás()
+                            h.highscore_write()
                             self._score = 0
 
                 if event.type == pygame.MOUSEBUTTONDOWN:  # ugrás / játékmód váltás
@@ -141,7 +141,7 @@ class Game:
                             self._bird.bird_reset()
                             self._pipes.clear()
                             h: Highscore = Highscore(self._score, self._diff)
-                            h.highscore_kiírás()
+                            h.highscore_write()
                             self._score = 0
                             self._Run = False
                             self._choosing = True

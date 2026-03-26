@@ -10,7 +10,7 @@ class Highscore:
         self.__score = score
         self.__gamemode = gamemode
 
-    def highscore_kiírás(self) -> None:
+    def highscore_write(self) -> None:
         with open("Highscore.txt", "a", encoding="utf-8") as file:
             file.write(
                 f"Pont: {self.__score}, Nehézség: {self.__gamemode}, Dátum: {self.__actual_date}\n"
