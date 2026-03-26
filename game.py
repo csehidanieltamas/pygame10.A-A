@@ -106,7 +106,7 @@ class Game:
 
             for p in self._pipes:  # csövek rajzolása és törlése
                 p.draw(self._WIN)
-                if p.rect.x < 20:
+                if p.rect.x < -200:
                     self._pipes.remove(p)
             if self._timer % 90 == 0:  # pont adás és hang hozzá
                 self._score += 1
